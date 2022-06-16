@@ -1,0 +1,83 @@
+The final project write up is titled "nbody_final.pdf"
+
+The Folders are as follows:
+
+
+## SCRIPTS ##
+
+All of the calculation scripts can be found under the scripts folder. There are 4 scripts:
+
+1. nbody.c - is the serial version of the N-Body code, currently set with the inner solar system parameters. The user has the freedom to change the timestep, the integration time and the bodies' initial conditions.
+
+This code was run locally using the compiling command: gcc nbody.c
+
+
+2. nbodyparallel.c - is the parallel version of the N-Body code (using OpenMP), currently set for a 2 Myr integration of 4,000 asteroids with Jupiter and the Sun.
+
+This code was run on Expanse using the compiling command:
+
+gcc -Wall -fopenmp nbody_parallel.c -lm
+
+
+3. nbodyparallel.sb - is the batch script for running the parallel version of the code using different amounts of threads and outputting the files under a name "particles_nthreads.csv".
+
+4. nbody_parallel_128.sb - is the batch script that runs the parallel code in 128 cores, the one with the fastest output used for the Science Part of the project.
+
+
+
+## PLOTTING_SCRIPTS ##
+
+These are the Python Scripts for Data Analysis/Plot generations.
+
+1. gifmaker.py - this is the code responsible for plotting Figures 5 and 6 on the final PDF write up, of the inner solar system and the Jupiter/asteroids plot. This code also produced the output of the GIFS folder. It takes in a CSV file outputted by nbody.c or nbodyparallel.c and plots the particle positions over different time steps.
+ 
+2. speeduptimes.py - this code is responsible for outputting Figures 2,3 and 4 on the final PDF write up. It takes in the wall clock time shown on the nbodyparallel.c CSV file output (which can be found under the CSV_OUTPUTS folder, with subfolders named asteroids[nasteroids]_1year). The code also fits for the quadratic polynomial on Figure 4 using Numpy.
+
+
+3. histogramplotter.py - this code is responsible for Figure 7 on the final PDF write up. It takes in a CSV output file from nbodyparallel.c, calculates the semi-major axis of each asteroid and then plots a histogram of the asteroid distribution from different time steps.
+
+
+
+## CSV_OUTPUTS ## 
+
+These are the output files for the nbodyparallel.c or nbody.c
+
+1. The subfolders asteroids(nasteroids)_1year contain the output results of nbodyparallel.c for 1 year of integration time, with the wall clock time printed. This produced figures 2,3,4 on the write up.
+
+2. The particles_128_2e6.csv file is the output file of nbodyparallel.c for 2 Myr of integration time, outputting the first and last positions of each particle. This produced the histogram on Figure 7 on the paper.
+
+3. particles_innsolar.csv is the output file for nbody.c for the inner solar system planets for 1 Earth Year. This produced Figure 5 on the final writeup.
+
+4. particles_gif.csv is the output file of nbodyparallel.c for 1,000 asteroids in 31 years, similar to what is shown on Figure 6 of the PDF write up and also what is used to create the gif asteroids.gif under the GIFS folder.
+
+
+
+## PLOTS ## 
+
+These are the plots included in the PDF write up.
+
+1. asteroidhist0yr and asteroidhist2myr are the histograms outputted by histogramplotter.py using the particles_128_2e6.csv file (outputted by nbodyparallel.c). These are on Figure 7 in the final PDF write up.
+
+2. asteroidspeed, asteroidtime, fit_128 and fit_both are the plots outputted by speeduptimes.py for the speed up and run time for different amounts of threads and asteroids. They use the CSV outputs of nbodyparallel.c.
+
+
+
+## GIFS ##
+
+These are movie animations outputted by gifmaker.py (snapshots of these compose Figures 5 and 6 on the write up).
+
+1. asteroids.gif - a 31 year integration of 1,000 asteroids using nbodyparallel.c CSV outputs.
+
+2. solarsysteminner.gif - a 1 year integration of the inner solar system using nbody.c CSV outputs.
+
+
+
+
+
+
+
+
+
+
+
+
