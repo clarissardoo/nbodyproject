@@ -1,0 +1,26 @@
+#!/bin/bash
+## Example of OpenMP code running on a shared node
+#SBATCH --job-name="nbody"
+#SBATCH --output="nbody_log"
+#SBATCH --partition=compute
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=128
+#SBATCH --mem=32G
+#SBATCH --export=ALL
+#SBATCH --account=csd453
+#SBATCH -t 00:1000:00
+
+# AOCC environment
+module purge
+module load slurm
+module load cpu
+module load aocc
+
+#SET the number of openmp threads
+
+
+#Run the openmp job
+export OMP_NUM_THREADS=128
+time ./a.out > particles_final.csv
+
